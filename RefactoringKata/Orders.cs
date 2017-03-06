@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace RefactoringKata
 {
@@ -11,14 +13,10 @@ namespace RefactoringKata
             _orders.Add(order);
         }
 
-        public int GetOrdersCount()
+        public string ToJson()
         {
-            return _orders.Count;
-        }
-
-        public Order GetOrder(int i)
-        {
-            return _orders[i];
+            return string.Format("{{\"orders\": [{0}]}}",
+                string.Join(", ", _orders.Select(o => o.ToJson())));
         }
     }
 }

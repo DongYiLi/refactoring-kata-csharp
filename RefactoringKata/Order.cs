@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace RefactoringKata
 {
@@ -12,24 +14,17 @@ namespace RefactoringKata
             this.id = id;
         }
 
-        public int GetOrderId()
-        {
-            return id;
-        }
-
-        public int GetProductsCount()
-        {
-            return _products.Count;
-        }
-
-        public Product GetProduct(int j)
-        {
-            return _products[j];
-        }
-
         public void AddProduct(Product product)
         {
             _products.Add(product);
+        }
+
+        public string ToJson()
+        {
+            return string.Format("{{\"id\": {0}, \"products\": [{1}]}}",
+                id,
+                string.Join(", ", _products.Select(p => p.ToJson()))
+                );
         }
     }
 }
