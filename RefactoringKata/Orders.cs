@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -15,8 +16,12 @@ namespace RefactoringKata
 
         public string ToJson()
         {
-            return string.Format("{{\"orders\": [{0}]}}",
-                string.Join(", ", _orders.Select(o => o.ToJson())));
+            var properties = new Dictionary<string, object>
+            {
+                {"orders", _orders.Select(o => o.ToJson())}
+            };
+
+            return JsonHelper.ToJson(properties);
         }
     }
 }

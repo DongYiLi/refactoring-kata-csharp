@@ -41,20 +41,17 @@ namespace RefactoringKata
 
         public string ToJson()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("{");
-            sb.AppendFormat("\"code\": \"{0}\", ", Code);
-            sb.AppendFormat("\"color\": \"{0}\", ", GetColorText());
-
+            var properties = new Dictionary<string, object>();
+            properties.Add("code", Code);
+            properties.Add("color", GetColorText());
             if (IsSizeApplicable())
             {
-                sb.AppendFormat("\"size\": \"{0}\", ", GetSizeText());
+                properties.Add("size", GetSizeText());
             }
+            properties.Add("price", Price);
+            properties.Add("currency", Currency);
 
-            sb.AppendFormat("\"price\": {0}, ", Price);
-            sb.AppendFormat("\"currency\": \"{0}\"", Currency);
-            sb.Append("}");
-            return sb.ToString();
+            return JsonHelper.ToJson(properties);
         }
 
         private string GetColorText()

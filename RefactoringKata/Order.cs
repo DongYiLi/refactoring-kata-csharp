@@ -21,10 +21,13 @@ namespace RefactoringKata
 
         public string ToJson()
         {
-            return string.Format("{{\"id\": {0}, \"products\": [{1}]}}",
-                id,
-                string.Join(", ", _products.Select(p => p.ToJson()))
-                );
+            var properties = new Dictionary<string, object>
+            {
+                {"id", id},
+                {"products", _products.Select(o => o.ToJson())}
+            };
+
+            return JsonHelper.ToJson(properties);
         }
     }
 }
